@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: "easy-appointment"
+    messages:
+      encoding: UTF-8
+  datasource:
+    url: jdbc:postgresql://localhost:5432/easyAppDB
+    username: postgres
+    password: postgres
+#  flyway:
+#    enabled: false
+  jpa:
+    generate-ddl: true
+#    hibernate:
+#      ddl-auto: none
+#
+#    show-sql: false
+#
+#  jmx:
+#    enabled: true
