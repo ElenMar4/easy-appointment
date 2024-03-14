@@ -3,6 +3,8 @@ dependency-reduced-pom.xml
 !.mvn
 !.mvn/wrapper/maven-wrapper.jar
 !.mvn/wrapper/maven-wrapper.properties
+.mvn/wrapper/maven-wrapper.properties
+.mvn/wrapper/maven-wrapper.jar
 mvnw
 mvnw.cmd
 !**/src/main/**/target/
