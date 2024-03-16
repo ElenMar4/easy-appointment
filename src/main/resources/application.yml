@@ -11,10 +11,10 @@ spring:
 #    enabled: false
   jpa:
     generate-ddl: true
-#    hibernate:
-#      ddl-auto: none
-#
-#    show-sql: false
+    hibernate:
+      ddl-auto: none
+
+    show-sql: true
 #
 #  jmx:
 #    enabled: true

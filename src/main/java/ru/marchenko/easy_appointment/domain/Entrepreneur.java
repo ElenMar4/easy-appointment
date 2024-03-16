@@ -3,8 +3,6 @@ package ru.marchenko.easy_appointment.domain;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.List;
-
 @Entity
 @Table(name = "entrepreneurs")
 @Data
@@ -15,13 +13,21 @@ public class Entrepreneur {
     @Column(name = "entrepreneur_id")
     private Long id;
 
-    private String appellation;
+    @Column(name = "name", nullable = false)
+    private String name;
 
-    private String email;
-
+    @Column(name = "phone", nullable = false, unique = true)
     private String phone;
 
-    @ManyToMany
-    private List<Customer> customerList;
+    @Column(name = "tax_number", nullable = false, unique = true)
+    private String taxNumber;
 
+    //    @OneToOne
+//    @JoinColumn(name = "user_id")
+//    private User user;
+
+//    @ManyToMany(targetEntity = Customer.class, fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+//    @JoinTable(name = "entrepreneur_customer", joinColumns = @JoinColumn(name = "entrepreneur_id"),
+//            inverseJoinColumns = @JoinColumn(name = "customer_id"))
+//    private List<Customer> customers;
 }
