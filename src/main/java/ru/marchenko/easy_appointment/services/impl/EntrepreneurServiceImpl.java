@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.marchenko.easy_appointment.domain.dto.EntrepreneurCreateDto;
 import ru.marchenko.easy_appointment.domain.dto.EntrepreneurDto;
+import ru.marchenko.easy_appointment.domain.dto.EntrepreneurDtoByCustomer;
 import ru.marchenko.easy_appointment.domain.mappers.EntrepreneurMapper;
 import ru.marchenko.easy_appointment.repositories.EntrepreneurRepository;
 import ru.marchenko.easy_appointment.services.EntrepreneurService;
@@ -18,7 +19,7 @@ public class EntrepreneurServiceImpl implements EntrepreneurService {
     private final EntrepreneurRepository repository;
     private final EntrepreneurMapper mapper;
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public List<EntrepreneurDto> getAll() {
         return repository.findAll().stream().map(mapper::toDto).toList();
@@ -35,7 +36,8 @@ public class EntrepreneurServiceImpl implements EntrepreneurService {
     public void deleteById(Long id) {
         repository.deleteById(id);
     }
-    @Transactional
+
+    @Transactional(readOnly = true)
     @Override
     public EntrepreneurDto getById(Long id) {
         return repository.findById(id).map(mapper::toDto).orElseThrow();
@@ -45,5 +47,11 @@ public class EntrepreneurServiceImpl implements EntrepreneurService {
     @Override
     public void update(EntrepreneurDto dto) {
         repository.save(mapper.toModel(dto));
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<EntrepreneurDtoByCustomer> getAllByCustomer() {
+        return mapper.toDto(repository.findAll());
     }
 }

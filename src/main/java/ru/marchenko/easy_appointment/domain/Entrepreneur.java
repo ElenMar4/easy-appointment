@@ -1,16 +1,22 @@
 package ru.marchenko.easy_appointment.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Table(name = "entrepreneurs")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Entrepreneur {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "entrepreneur_id")
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "name", nullable = false)
@@ -26,8 +32,4 @@ public class Entrepreneur {
 //    @JoinColumn(name = "user_id")
 //    private User user;
 
-//    @ManyToMany(targetEntity = Customer.class, fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-//    @JoinTable(name = "entrepreneur_customer", joinColumns = @JoinColumn(name = "entrepreneur_id"),
-//            inverseJoinColumns = @JoinColumn(name = "customer_id"))
-//    private List<Customer> customers;
 }

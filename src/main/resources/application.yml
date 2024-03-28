@@ -15,6 +15,11 @@ spring:
       ddl-auto: none
 
     show-sql: true
+  thymeleaf:
+    suffix: .html
+    cache: false
+    mode: HTML
+    encoding: UTF-8
 #
 #  jmx:
 #    enabled: true

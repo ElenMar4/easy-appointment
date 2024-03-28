@@ -27,12 +27,12 @@
     </div>
     <div class="mb-3">
         <label for="inputPhone" class="form-label">Phone</label>
-        <input type="text" class="form-control" id="inputPhone" name="phone" th:value="${dto.phone}" >
+        <input type="text" class="form-control" id="inputPhone" name="phone" th:value="${dto.phone}" th:field="${dto.phone}" placeholder="+7 XXX XXX XX XX" pattern="^\+7\d{3}\d{3}\d{2}\d{2}$" required>
         <div class="errors" th:if="${#fields.hasErrors('dto.phone')}" th:errors="${dto.phone}">Wrong phone error</div>
     </div>
     <div class="mb-3">
         <label for="inputTaxNumber" class="form-label">TaxNumber</label>
-        <input type="text" class="form-control" id="inputTaxNumber" name="taxNumber" th:value="${dto.taxNumber}">
+        <input type="text" class="form-control" id="inputTaxNumber" name="taxNumber" th:value="${dto.taxNumber}" th:field="${dto.taxNumber}" placeholder="Введите ИНН (10 или 12 цифр)" pattern="^\d{10}$|^\d{12}$" required>
         <div class="errors" th:if="${#fields.hasErrors('dto.taxNumber')}" th:errors="${dto.taxNumber}">Wrong tax number error</div>
     </div>
     <button type="submit" class="btn btn-primary">Сохранить</button>
