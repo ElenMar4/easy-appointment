@@ -34,13 +34,6 @@ public class AppointmentServiceImpl implements AppointmentService {
         return appointments.isEmpty() ? null : appointmentMapper.toDto(appointments);
     }
 
-    @Transactional(readOnly = true)
-    @Override
-    public List<ShortAppointmentDto> getAppointmentsForCurrentDay(LocalDate date, long entrepreneurId) {
-        List<Appointment> appointments = appointmentRepository.findAllByDateAndEntrepreneurId(date.toString(), entrepreneurId);
-        return appointmentMapper.toDto(appointments);
-    }
-
     @Override
     @Transactional
     public void saveAllOpenAppointments(List<OpenAppointmentDto> openAppointmentDtoList) {
@@ -52,8 +45,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public AppointmentDto getById(long appointmentId) {
         Appointment appointment = appointmentRepository.findById(appointmentId).orElseThrow();
-        AppointmentDto dto = appointmentMapper.toDto(appointment);
-        return dto;
+        return appointmentMapper.toDto(appointment);
     }
 
     @Transactional

@@ -14,6 +14,13 @@
             integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 </head>
 <body>
+<ul class="nav">
+    <li class="nav-item">
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="nav-link">Выход</button>
+        </form>
+    </li>
+</ul>
     <figure class="text-center">
         <blockquote class="blockquote">
             <p>Личный кабинет предпринимателя</p>
@@ -23,42 +30,12 @@
         </figcaption>
     </figure>
     <div class="container mt-5">
-<!--        <div class="row">-->
-<!--            <form th:action="@{'/entrepreneur/' + ${id} + '/create-schedule'}" method="get">-->
-<!--                <button type="submit" class="btn btn-primary mt-3">Создать расписание</button>-->
-<!--            </form>-->
-<!--        </div>-->
         <div class="row" th:each="day : ${week}">
             <form th:action="@{'/entrepreneur/' + ${id} + '/' + ${day}}" method="get">
                 <button class="btn btn-outline-secondary" type="submit"  th:text="@{${day}}"></button>
             </form>
         </div>
 
-<!--        <div class="row">-->
-<!--            <h3>Расписание на сегодняшний день</h3>-->
-<!--            <table class="table">-->
-<!--                <thead>-->
-<!--                    <tr>-->
-<!--                        <th scope="col">Date</th>-->
-<!--                        <th scope="col">Time</th>-->
-<!--                        <th scope="col">Status</th>-->
-<!--                        <th scope="col"></th>-->
-<!--                    </tr>-->
-<!--                </thead>-->
-<!--                <tbody>-->
-<!--                <tr th:each="app : ${appointments}">-->
-<!--                    <td th:text="${app.date}">null</td>-->
-<!--                    <td th:text="${app.startTime}">null</td>-->
-<!--                    <td th:text="${app.status}">null</td>-->
-<!--                    <td>-->
-<!--                        <form th:action="@{'/entrepreneur/' + ${id} + '/appointment/' + ${app.id}}" method="get">-->
-<!--                            <button type="submit" class="btn btn-primary">Подробнее</button>-->
-<!--                        </form>-->
-<!--                    </td>-->
-<!--                </tr>-->
-<!--                </tbody>-->
-<!--            </table>-->
-<!--        </div>-->
     </div>
 </body>
 </html>

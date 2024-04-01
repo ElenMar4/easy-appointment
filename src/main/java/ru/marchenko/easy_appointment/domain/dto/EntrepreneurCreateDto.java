@@ -19,4 +19,10 @@ public class EntrepreneurCreateDto {
 
     @NotBlank(message = "Tax number field should not be blank")
     private String taxNumber;
+
+    @NotBlank(message = "Email field should not be blank")
+    private String username;
+
+    @NotBlank(message = "Password field should not be blank")
+    private String password;
 }

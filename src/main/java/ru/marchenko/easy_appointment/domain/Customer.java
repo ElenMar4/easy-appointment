@@ -1,7 +1,10 @@
 package ru.marchenko.easy_appointment.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 
@@ -9,6 +12,8 @@ import java.util.List;
 @Entity
 @Table(name = "customers")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Customer {
 
     @Id
@@ -19,11 +24,10 @@ public class Customer {
     @Column(name = "name", nullable = false)
     private String name;
 
-//    @OneToOne
-//    @JoinColumn(name = "user_id")
-//    private User user;
-
     @Column(name = "phone", nullable = false, unique = true)
     private String phone;
 
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

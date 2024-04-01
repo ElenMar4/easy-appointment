@@ -2,12 +2,11 @@ package ru.marchenko.easy_appointment.services;
 
 import ru.marchenko.easy_appointment.domain.dto.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface AppointmentService {
+
     void saveAllOpenAppointments(List<OpenAppointmentDto> openAppointmentDtoList);
-    List<ShortAppointmentDto> getAppointmentsForCurrentDay(LocalDate date, long entrepreneurId);
 
     AppointmentDto getById(long appointmentId);
 

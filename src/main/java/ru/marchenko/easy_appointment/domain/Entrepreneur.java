@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 
@@ -28,8 +29,7 @@ public class Entrepreneur {
     @Column(name = "tax_number", nullable = false, unique = true)
     private String taxNumber;
 
-    //    @OneToOne
-//    @JoinColumn(name = "user_id")
-//    private User user;
-
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

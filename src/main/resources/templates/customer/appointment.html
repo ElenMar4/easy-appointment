@@ -14,6 +14,18 @@
           integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 </head>
 <body>
+<ul class="nav">
+  <li class="nav-item">
+    <form th:action="@{'/customer/' + ${id} + '/account'}" method="get">
+      <button type="submit" class="nav-link active">Личный кабинет</button>
+    </form>
+  </li>
+  <li class="nav-item">
+    <form th:action="@{/logout}" method="post">
+      <button type="submit" class="nav-link">Выход</button>
+    </form>
+  </li>
+</ul>
 <figure class="text-center">
   <blockquote class="blockquote">
     <p>Страница записи</p>
@@ -22,11 +34,6 @@
     Здесь можно записаться на услугу.
   </figcaption>
 </figure>
-<ul class="nav">
-  <li class="nav-item">
-    <a class="nav-link active" aria-current="page" th:href="@{'/customer/' + ${id} + '/account'}">Личный кабинет</a>
-  </li>
-</ul>
 <div class="container mt-5">
   <div th:each="entry : ${schedules.schedule}">
     <h4 th:text="${entry.key}"></h4>

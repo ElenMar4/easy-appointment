@@ -13,9 +13,20 @@
             integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 </head>
 <body>
-
+<ul class="nav">
+    <li class="nav-item">
+        <form th:action="@{'/admin'}" method="get">
+            <button type="submit" class="nav-link active" aria-current="page">Личный кабинет</button>
+        </form>
+    </li>
+    <li class="nav-item">
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="nav-link">Выход</button>
+        </form>
+    </li>
+</ul>
 <div class="callout">Форма для редактирования данных о предпринимателе</div>
-<form id="edit-form" action="edit.html" th:method="post" th:action="@{/easy-appointment/edit(id=${dto.id})}">
+<form id="edit-form" action="edit.html" th:method="post" th:action="@{/admin/edit(id=${dto.id})}">
     <div class="mb-3">
         <label for="id" class="form-label">ID:</label>
         <input type="text" id="id" class="form-control"  readonly="readonly" th:value="${dto.id}"/>
@@ -27,7 +38,7 @@
     </div>
     <div class="mb-3">
         <label for="inputPhone" class="form-label">Phone</label>
-        <input type="text" class="form-control" id="inputPhone" name="phone" th:value="${dto.phone}" th:field="${dto.phone}" placeholder="+7 XXX XXX XX XX" pattern="^\+7\d{3}\d{3}\d{2}\d{2}$" required>
+        <input type="text" class="form-control" id="inputPhone" name="phone" th:value="${dto.phone}" th:field="${dto.phone}" required>
         <div class="errors" th:if="${#fields.hasErrors('dto.phone')}" th:errors="${dto.phone}">Wrong phone error</div>
     </div>
     <div class="mb-3">

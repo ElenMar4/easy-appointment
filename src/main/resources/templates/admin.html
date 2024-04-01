@@ -13,9 +13,13 @@
             integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 </head>
 <body>
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Sign Out"/>
-</form>
+<ul class="nav">
+    <li class="nav-item">
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="nav-link">Выход</button>
+        </form>
+    </li>
+</ul>
 <figure class="text-center">
     <blockquote class="blockquote">
         <p>Добро пожаловать на страницу администратора.</p>
@@ -26,8 +30,8 @@
 </figure>
 
 <div class="container text-center overflow-hidden">
-    <div class="row">
-        <div class="col-sm">
+    <div class="row shadow-lg p-3 mb-5 bg-white rounded">
+        <div class="col-sm border border-secondary">
             <table class="table table-borderless table-striped caption-top">
                 <caption>Список зарегистрированных предпринимателей</caption>
                 <thead class="table-light">
@@ -47,22 +51,22 @@
                     <td th:text="${entre.phone}">null</td>
                     <td th:text="${entre.taxNumber}">null</td>
                     <td>
-                            <form th:action="@{/easy-appointment/edit/{id}(id=${entre.id})}" method="get">
-                                <button type="submit" class="btn btn-primary">Изменить</button>
+                            <form th:action="@{/admin/edit/{id}(id=${entre.id})}" method="get">
+                                <button type="submit" class="btn btn-outline-info">Изменить</button>
                             </form>
                     </td>
                     <td>
-                            <form th:action="@{/easy-appointment/delete/{id}(id=${entre.id})}" method="get">
-                                <button type="submit" class="btn btn-danger">Х</button>
+                            <form th:action="@{/admin/delete/{id}(id=${entre.id})}" method="get">
+                                <button type="submit" class="btn btn-outline-danger">Х</button>
                             </form>
                     </td>
                 </tr>
                 </tbody>
             </table>
         </div>
-        <div class="col-sm">
+        <div class="col-sm border border-secondary">
             <div class="callout">Форма для регистрации нового предпринимателя</div>
-            <form th:method="post" th:action="@{/easy-appointment}">
+            <form th:method="post" th:action="@{/admin}">
                 <div class="mb-3">
                     <label for="inputName" class="form-label">Name</label>
                     <input type="text" class="form-control" id="inputName" name="name" >
@@ -78,7 +82,18 @@
                     <input type="text" class="form-control" id="inputTaxNumber" name="taxNumber" th:field="${entrepreneurCreateDto.taxNumber}" placeholder="Введите ИНН (10 или 12 цифр)" pattern="^\d{10}$|^\d{12}$" required>
                     <div class="errors" th:if="${#fields.hasErrors('entrepreneurCreateDto.taxNumber')}" th:errors="${entrepreneurCreateDto.taxNumber}">Wrong tax number error</div>
                 </div>
-                <button type="submit" class="btn btn-primary">Create</button>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">@</span>
+                    <input type="email" class="form-control" placeholder="Username" aria-label="Username" th:field="${entrepreneurCreateDto.username}">
+                    <div class="errors" th:if="${#fields.hasErrors('entrepreneurCreateDto.username')}" th:errors="${entrepreneurCreateDto.username}">Wrong email error</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="inputPassword" class="form-label">Password</label>
+                    <input type="text" class="form-control" id="inputPassword" name="password" th:field="${entrepreneurCreateDto.password}">
+                    <div class="errors" th:if="${#fields.hasErrors('entrepreneurCreateDto.password')}" th:errors="${entrepreneurCreateDto.password}">Wrong password error</div>
+                </div>
+                <button type="submit" class="btn btn-outline-success">Create</button>
             </form>
         </div>
     </div>

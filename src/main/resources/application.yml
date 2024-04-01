@@ -20,6 +20,11 @@ spring:
     cache: false
     mode: HTML
     encoding: UTF-8
+server:
+  port: 8080
+notification:
+  host_name: ${HOST_NAME}
+  host_port: ${HOST_PORT}
 #
 #  jmx:
 #    enabled: true

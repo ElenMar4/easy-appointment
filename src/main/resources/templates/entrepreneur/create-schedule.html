@@ -14,6 +14,18 @@
             integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 </head>
 <body>
+<ul class="nav">
+    <li class="nav-item">
+        <form th:action="@{'/entrepreneur/' + ${id} + '/account'}" method="get">
+            <button type="submit" class="nav-link active" aria-current="page">Личный кабинет</button>
+        </form>
+    </li>
+    <li class="nav-item">
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="nav-link">Выход</button>
+        </form>
+    </li>
+</ul>
 <figure class="text-center">
     <blockquote class="blockquote">
         <p>Страница создания расписания</p>
@@ -22,12 +34,6 @@
         Здесь можно установить свободное время для записи.
     </figcaption>
 </figure>
-
-<ul class="nav">
-    <li class="nav-item">
-        <a class="nav-link active" aria-current="page" th:href="@{'/entrepreneur/' + ${id} + '/account'}">Личный кабинет</a>
-    </li>
-</ul>
 <div class="container mt-5">
     <form th:action="@{'/entrepreneur/' + ${id} + '/' + ${date} + '/create-schedule'}" method="post">
         <div  class="row mb-3 border border-primary shadow rounded" >

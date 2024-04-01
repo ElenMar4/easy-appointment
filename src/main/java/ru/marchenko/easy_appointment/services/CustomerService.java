@@ -1,14 +1,12 @@
 package ru.marchenko.easy_appointment.services;
 
 import ru.marchenko.easy_appointment.domain.Customer;
-
-import java.util.List;
+import ru.marchenko.easy_appointment.domain.dto.CustomerDto;
+import ru.marchenko.easy_appointment.exceptions.UserAlreadyExistsException;
 
 public interface CustomerService {
 
-    Customer getById (long id);
+    void create (CustomerDto customerDto) throws UserAlreadyExistsException;
 
-    Customer create ();
-
-    void delete(long id);
+    Customer getByUsername(String username);
 }
