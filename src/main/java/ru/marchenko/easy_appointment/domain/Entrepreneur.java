@@ -4,9 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.List;
 
 @Entity
 @Table(name = "entrepreneurs")
@@ -29,7 +26,7 @@ public class Entrepreneur {
     @Column(name = "tax_number", nullable = false, unique = true)
     private String taxNumber;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 }

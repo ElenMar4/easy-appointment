@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository
@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
                 .map(SecurityUser::new)
                 .orElseThrow(() -> new UsernameNotFoundException("User is not authenticated"));
     }
-
+    @Transactional
     public boolean saveUser(User user) {
         Optional<User> userOptional = userRepository.findByUsername(user.getUsername());
         if(userOptional.isPresent()){
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
             return true;
         }
     }
-
+    @Transactional(readOnly = true)
     public User findByUsername(String username) {
         return userRepository.findByUsername(username).orElseThrow();
     }

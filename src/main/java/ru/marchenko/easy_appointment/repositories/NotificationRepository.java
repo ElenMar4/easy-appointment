@@ -8,9 +8,7 @@ import ru.marchenko.easy_appointment.domain.Appointment;
 import ru.marchenko.easy_appointment.domain.Notification;
 import ru.marchenko.easy_appointment.domain.Status;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 @Repository

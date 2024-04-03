@@ -2,6 +2,7 @@ package ru.marchenko.easy_appointment.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.marchenko.easy_appointment.domain.Appointment;
 import ru.marchenko.easy_appointment.domain.Notification;
 import ru.marchenko.easy_appointment.domain.Status;
@@ -19,6 +20,7 @@ public class NotificationServiceImpl implements NotificationService {
     private final NotificationMapper notificationMapper;
 
     @Override
+    @Transactional(readOnly = true)
     public void create(Appointment appointment) {
         Notification notification = notificationRepository.findByAppointment(appointment);
         if (notification == null){
@@ -27,16 +29,19 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Notification> getAllForSend(LocalDateTime dateTime, Status status) {
         return notificationRepository.getAllByStatusAndDateTimeLessThan(Status.UNSENT, dateTime);
     }
 
     @Override
+    @Transactional
     public void delete(Appointment appointment) {
         notificationRepository.deleteByAppointment(appointment);
     }
 
     @Override
+    @Transactional
     public void update(Notification notification) {
         notificationRepository.save(notification);
     }

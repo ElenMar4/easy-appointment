@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import org.springframework.util.StringUtils;
 import ru.marchenko.easy_appointment.domain.Appointment;
 import ru.marchenko.easy_appointment.domain.AppointmentStatus;
 import ru.marchenko.easy_appointment.domain.Customer;
@@ -37,9 +36,6 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public List<ShortAppointmentDto> getByDate(long entrepreneurId, String date) {
         LocalDate currentDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("dd-MM-uuuu"));
-//        String str = date1.format(DateTimeFormatter.ofPattern("uuuu-MM-dd"));
-//        LocalDate currentDate = LocalDate.parse(str, DateTimeFormatter.ofPattern("uuuu-MM-dd"));
-
         List<Appointment> appointments = appointmentRepository.findAllByDateAndEntrepreneurId(currentDate, entrepreneurId);
         return appointments.isEmpty() ? null : appointmentMapper.toDto(appointments);
     }

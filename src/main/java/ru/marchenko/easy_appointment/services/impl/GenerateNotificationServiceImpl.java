@@ -24,7 +24,7 @@ public class GenerateNotificationServiceImpl implements GenerateNotificationServ
 
     private final EmailService emailService;
 
-    @Scheduled(cron = "0 0/1 * * * *")
+    @Scheduled(cron = "0 0/30 * * * *")
     public void reportCurrentTime() throws MessagingException {
         List<Notification> notifications = notificationService.getAllForSend(LocalDateTime.now(), Status.UNSENT);
         for (Notification notification : notifications){

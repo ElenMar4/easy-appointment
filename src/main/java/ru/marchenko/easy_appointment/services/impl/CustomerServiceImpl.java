@@ -39,7 +39,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public Customer getByUsername(String username) {
         User user = userRepository.findByUsername(username).orElseThrow();

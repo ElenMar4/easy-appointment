@@ -8,7 +8,6 @@ import ru.marchenko.easy_appointment.domain.dto.OpenAppointmentDto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -44,17 +43,11 @@ public class ScheduleParserImpl implements ScheduleParser {
     @Override
     public ScheduleDto buildScheduleWithOpenedAppointment(List<ShortAppointmentDto> dtoList) {
 
-//        LocalTime currentTime = LocalTime.now();
-
         Map<String, List<ShortAppointmentDto>> map = dtoList.stream()
                 .filter(dto -> {
                     String strDateTime = dto.getDate() + " " + dto.getStartTime();
                     LocalDateTime dateTime = LocalDateTime.parse(strDateTime, DateTimeFormatter.ofPattern("dd-MM-uuuu HH:mm"));
                     return dateTime.isAfter(LocalDateTime.now());
-//                    LocalDate appointmentDate = LocalDate.parse(dto.getDate(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-//                    LocalTime appointmentTime = LocalTime.parse(dto.getStartTime(), DateTimeFormatter.ofPattern("HH:mm"));
-//                    return appointmentDate.isAfter(LocalDate.now()) ||
-//                            (appointmentDate.equals(LocalDate.now()) && appointmentTime.isAfter(currentTime));
                 })
                 .collect(Collectors.groupingBy(ShortAppointmentDto::getDate))
                 .entrySet().stream()

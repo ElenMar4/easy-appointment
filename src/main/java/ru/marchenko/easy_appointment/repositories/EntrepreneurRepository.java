@@ -8,6 +8,4 @@ import ru.marchenko.easy_appointment.domain.User;
 @Repository
 public interface EntrepreneurRepository extends JpaRepository<Entrepreneur, Long> {
     Entrepreneur findByUser(User user);
-
-//    Entrepreneur findByUsername(String username);
 }

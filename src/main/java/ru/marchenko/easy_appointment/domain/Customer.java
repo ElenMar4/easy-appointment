@@ -27,7 +27,7 @@ public class Customer {
     @Column(name = "phone", nullable = false)
     private String phone;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 }

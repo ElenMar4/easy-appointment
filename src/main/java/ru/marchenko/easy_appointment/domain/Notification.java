@@ -3,9 +3,7 @@ package ru.marchenko.easy_appointment.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @Entity
 @Table(name = "notifications")
@@ -21,10 +19,7 @@ public class Notification {
     @Column(name = "date_time")
     private LocalDateTime date_time;
 
-//    @Column(name = "time")
-//    private LocalTime time;
-
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Appointment appointment;
 
     @Enumerated(EnumType.STRING)
