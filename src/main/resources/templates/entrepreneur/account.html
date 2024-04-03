@@ -29,6 +29,9 @@
             Здесь можно открыть время для записи. Редактировать текущее расписание. Посмотреть расписание на текущий день.
         </figcaption>
     </figure>
+<form th:action="@{tomorrow}" method="get">
+    <button class="btn btn-outline-secondary" type="submit">Расписание на 24 часа</button>
+</form>
     <div class="container mt-5">
         <div class="row" th:each="day : ${week}">
             <form th:action="@{'/entrepreneur/' + ${id} + '/' + ${day}}" method="get">

@@ -45,7 +45,8 @@ public class EntrepreneurController {
     public String createNewScheduleByDay(@PathVariable long entrepreneur_id,
                                          @PathVariable String date,
                                          @RequestParam List<String> selectedTimeSlots){
-        appointmentService.saveAllOpenAppointments(scheduleParser.generateCurrentSchedule(date, selectedTimeSlots, entrepreneur_id));
+        List<OpenAppointmentDto> dto = scheduleParser.generateCurrentSchedule(date, selectedTimeSlots, entrepreneur_id);
+        appointmentService.saveAllOpenAppointments(dto);
         return "redirect:/entrepreneur/{entrepreneur_id}/{date}";
     }
 
@@ -61,6 +62,14 @@ public class EntrepreneurController {
     public String deleteDaySchedule(@PathVariable long entrepreneur_id, @PathVariable String date){
         appointmentService.deleteAllByDate(date, entrepreneur_id);
         return "redirect:/entrepreneur/{entrepreneur_id}/account";
+    }
+
+    @GetMapping("/entrepreneur/{entrepreneur_id}/tomorrow")
+    public String getNextDayAppointments(@PathVariable long entrepreneur_id, Model model){
+        List<AppointmentDto> appointments = appointmentService.getAllByTomorrow(entrepreneur_id);
+        model.addAttribute("appointments", appointments);
+        model.addAttribute("id", entrepreneur_id);
+        return "entrepreneur/tomorrow";
     }
 }
 

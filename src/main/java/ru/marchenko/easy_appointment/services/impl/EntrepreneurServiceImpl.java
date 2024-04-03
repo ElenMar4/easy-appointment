@@ -78,6 +78,7 @@ public class EntrepreneurServiceImpl implements EntrepreneurService {
     }
 
     @Override
+    @Transactional
     public Entrepreneur getByUsername(String username) {
         User user = userRepository.findByUsername(username).orElseThrow();
         return repository.findByUser(user);

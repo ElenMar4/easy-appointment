@@ -1,0 +1,6 @@
+username:   easy_appointment_admin@gmail.com
+password:   easy_admin      /   $2y$10$mtrnJeGs6n9WCDDSIG.UuOQFzzq5aIoVkIINMFco/3xO300y5AzD.
+
+
+insert into users (username, password) values ('easy_appointment_admin@gmail.com', '$2y$10$mtrnJeGs6n9WCDDSIG.UuOQFzzq5aIoVkIINMFco/3xO300y5AzD.')
+insert into roles (user_id, role) values (1, 'ADMIN')

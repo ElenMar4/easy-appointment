@@ -32,7 +32,6 @@ public class CustomerServiceImpl implements CustomerService {
                 customerDto.getPassword(),
                 Collections.singleton(Role.CUSTOMER));
         if(userService.saveUser(user)){
-            user = userService.findByUsername(customerDto.getUsername());
             Customer customer = customerMapper.toModel(customerDto, user);
             customerRepository.save(customer);
         } else {

@@ -3,6 +3,8 @@ package ru.marchenko.easy_appointment.services.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import org.springframework.util.StringUtils;
 import ru.marchenko.easy_appointment.domain.Appointment;
 import ru.marchenko.easy_appointment.domain.AppointmentStatus;
 import ru.marchenko.easy_appointment.domain.Customer;
@@ -13,8 +15,11 @@ import ru.marchenko.easy_appointment.repositories.AppointmentRepository;
 import ru.marchenko.easy_appointment.repositories.CustomerRepository;
 import ru.marchenko.easy_appointment.repositories.EntrepreneurRepository;
 import ru.marchenko.easy_appointment.services.AppointmentService;
+import ru.marchenko.easy_appointment.services.NotificationService;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -25,12 +30,17 @@ public class AppointmentServiceImpl implements AppointmentService {
     private final AppointmentRepository appointmentRepository;
     private final EntrepreneurRepository entrepreneurRepository;
     private final CustomerRepository customerRepository;
+    private final NotificationService notificationService;
 
 
     @Transactional(readOnly = true)
     @Override
     public List<ShortAppointmentDto> getByDate(long entrepreneurId, String date) {
-        List<Appointment> appointments = appointmentRepository.findAllByDateAndEntrepreneurId(date, entrepreneurId);
+        LocalDate currentDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("dd-MM-uuuu"));
+//        String str = date1.format(DateTimeFormatter.ofPattern("uuuu-MM-dd"));
+//        LocalDate currentDate = LocalDate.parse(str, DateTimeFormatter.ofPattern("uuuu-MM-dd"));
+
+        List<Appointment> appointments = appointmentRepository.findAllByDateAndEntrepreneurId(currentDate, entrepreneurId);
         return appointments.isEmpty() ? null : appointmentMapper.toDto(appointments);
     }
 
@@ -51,8 +61,9 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Transactional
     @Override
     public void deleteAllByDate(String date, long entrepreneurId) {
+        LocalDateTime currentDate = LocalDateTime.parse(date, DateTimeFormatter.ofPattern("dd-MM-uuuu"));
         Entrepreneur entrepreneur = entrepreneurRepository.findById(entrepreneurId).orElseThrow();
-        appointmentRepository.deleteByDateAndEntrepreneur(date, entrepreneur);
+        appointmentRepository.deleteByDateTimeAndEntrepreneur(currentDate, entrepreneur);
     }
 
     @Transactional(readOnly = true)
@@ -78,6 +89,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         appointment.setCustomer(customer);
         appointment.setStatus(AppointmentStatus.CLOSED.getStatus());
         appointmentRepository.save(appointment);
+        notificationService.create(appointment);
     }
 
     @Transactional
@@ -87,5 +99,19 @@ public class AppointmentServiceImpl implements AppointmentService {
         appointment.setCustomer(null);
         appointment.setStatus(AppointmentStatus.OPENED.getStatus());
         appointmentRepository.save(appointment);
+        notificationService.delete(appointment);
+    }
+
+    @Transactional
+    @Override
+    public List<AppointmentDto> getAllByTomorrow(long entrepreneurId) {
+        LocalDateTime start = LocalDateTime.now();
+        List<Appointment> appointments = appointmentRepository.findAllByEntrepreneurAndStatusWhenDateTimeBetween(
+                        entrepreneurId,
+                        AppointmentStatus.CLOSED.getStatus(),
+                        start,
+                        start.plusDays(1)
+                );
+        return appointmentMapper.toDtoList(appointments);
     }
 }

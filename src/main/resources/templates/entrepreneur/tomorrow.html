@@ -16,6 +16,11 @@
 <body>
 <ul class="nav">
     <li class="nav-item">
+        <form th:action="@{'/entrepreneur/' + ${id} + '/account'}" method="get">
+            <button type="submit" class="nav-link active" aria-current="page">Личный кабинет</button>
+        </form>
+    </li>
+    <li class="nav-item">
         <form th:action="@{/logout}" method="post">
             <button type="submit" class="nav-link">Выход</button>
         </form>
@@ -23,68 +28,32 @@
 </ul>
 <figure class="text-center">
     <blockquote class="blockquote">
-        <p>Личный кабинет клиента</p>
+        <p>Активные записи на 24 часа:</p>
     </blockquote>
-    <figcaption class="blockquote-footer">
-        Здесь можно посмотреть или отменить свою запись. Или записаться на услугу.
-    </figcaption>
 </figure>
 <div class="container mt-5">
     <div class="row shadow-lg p-3 mb-5 bg-white rounded">
-        <div class="col-sm border border-secondary">
             <table class="table table-borderless table-bordered table-striped caption-top table-hover">
-                <caption>Мои записи:</caption>
                 <thead class="table-light">
                 <tr>
-                    <th scope="col">НАИМЕНОВАНИЕ</th>
-                    <th scope="col">ТЕЛЕФОН</th>
                     <th scope="col">ДАТА</th>
                     <th scope="col">НАЧАЛО</th>
                     <th scope="col">ОКОНЧАНИЕ</th>
-                    <th scope="col"></th>
+                    <th scope="col">ИМЯ</th>
+                    <th scope="col">ТЕЛЕФОН</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="app : ${appointments}">
-                    <td th:text="${app.entrepreneurName}">null</td>
-                    <td th:text="${app.entrepreneurPhone}">null</td>
                     <td th:text="${app.date}">null</td>
                     <td th:text="${app.startTime}">null</td>
                     <td th:text="${app.finishTime}">null</td>
-                    <td>
-                        <form th:action="@{'/customer/' + ${id} + '/cancel/' + ${app.id}}" method="post">
-                            <button type="submit" class="btn btn-outline-secondary">Отменить</button>
-                        </form>
-                    </td>
+                    <td th:text="${app.customerName}">null</td>
+                    <td th:text="${app.customerPhone}">null</td>
                 </tr>
                 </tbody>
             </table>
-        </div>
-
-        <div class="col-sm border border-secondary">
-            <table class="table table-borderless table-striped caption-top">
-                <caption>Новая запись:</caption>
-                <thead class="table-light">
-                <tr>
-                    <th scope="col">НАИМЕНОВАНИЕ</th>
-                    <th scope="col">ТЕЛ.:</th>
-                    <th scope="col"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="entre : ${entrepreneurs}">
-                    <td th:text="${entre.name}">null</td>
-                    <td th:text="${entre.phone}">null</td>
-                    <td>
-                        <form th:action="@{'/customer/' + ${id} + '/' + ${entre.id} + '/create'}" method="get">
-                            <button type="submit" class="btn btn-outline-secondary">Записаться</button>
-                        </form>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
     </div>
-</div>
+    </div>
 </body>
 </html>

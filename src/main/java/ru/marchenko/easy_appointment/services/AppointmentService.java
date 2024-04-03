@@ -21,4 +21,6 @@ public interface AppointmentService {
     void save(long appointmentId, long customerId);
 
     void cancelAppointment(long appointmentId);
+
+    List<AppointmentDto> getAllByTomorrow(long entrepreneurId);
 }

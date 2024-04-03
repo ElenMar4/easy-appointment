@@ -15,6 +15,8 @@ public interface AppointmentMapper {
 
     AppointmentDto toDto(Appointment appointment);
 
+    List<AppointmentDto> toDtoList (List<Appointment> appointments);
+
     List<AppointmentDtoByCustomer> toDtoByCustomer(List<Appointment> appointments);
 }
 
