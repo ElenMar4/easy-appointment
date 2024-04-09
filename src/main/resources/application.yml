@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: "easy-appointment"
+    messages:
+      encoding: UTF-8
+  datasource:
+    url: jdbc:postgresql://localhost:5432/easyAppDB
+    username: postgres
+    password: postgres
+  flyway:
+    enabled: true
+  mail:
+    password:
+    username:
+    host: mailhog
+    port: 1025
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: true
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: none
+
+    show-sql: true
+  thymeleaf:
+    suffix: .html
+    cache: false
+    mode: HTML
+    encoding: UTF-8
+server:
+  port: 8080
+#notification:
+#  host_name: ${HOST_NAME}
+#  host_port: ${HOST_PORT}
+#
+#  jmx:
+#    enabled: true

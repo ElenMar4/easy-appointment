@@ -1,0 +1,18 @@
+    Admin
+    l:  easy_appointment_admin@example.com
+    p:  easy_admin
+
+    Entrepreneur
+    l:  e1@example.com
+    l:  e2@example.com
+    l:  e3@example.com
+    p:  0000
+
+    Customer
+    l:  c1@example.com
+    l:  c2@example.com
+    l:  c3@example.com
+    l:  c4@example.com
+    p:  1111
+
+    

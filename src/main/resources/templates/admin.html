@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+            integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+</head>
+<body>
+<ul class="nav">
+    <li class="nav-item">
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="nav-link">Выход</button>
+        </form>
+    </li>
+</ul>
+<figure class="text-center">
+    <blockquote class="blockquote">
+        <p>Добро пожаловать на страницу администратора.</p>
+    </blockquote>
+    <figcaption class="blockquote-footer">
+        Здесь можно добавить нового предпринимателя. Или редактировать уже существующего.
+    </figcaption>
+</figure>
+
+<div class="container text-center overflow-hidden">
+    <div class="row shadow-lg p-3 mb-5 bg-white rounded">
+        <div class="col-sm border border-secondary">
+            <table class="table table-borderless table-striped caption-top">
+                <caption>Список зарегистрированных предпринимателей</caption>
+                <thead class="table-light">
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">name</th>
+                    <th scope="col">phone</th>
+                    <th scope="col">tax number</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="entre : ${entrepreneurs}">
+                    <td th:text="${entre.id}">null</td>
+                    <td th:text="${entre.name}">null</td>
+                    <td th:text="${entre.phone}">null</td>
+                    <td th:text="${entre.taxNumber}">null</td>
+                    <td>
+                            <form th:action="@{/admin/edit/{id}(id=${entre.id})}" method="get">
+                                <button type="submit" class="btn btn-outline-info">Изменить</button>
+                            </form>
+                    </td>
+                    <td>
+                            <form th:action="@{/admin/delete/{id}(id=${entre.id})}" method="get">
+                                <button type="submit" class="btn btn-outline-danger">Х</button>
+                            </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm border border-secondary">
+            <div class="callout">Форма для регистрации нового предпринимателя</div>
+            <form th:method="post" th:action="@{/admin}">
+                <div class="mb-3">
+                    <label for="inputName" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="inputName" name="name" >
+                    <div class="errors" th:if="${#fields.hasErrors('entrepreneurCreateDto.name')}" th:errors="${entrepreneurCreateDto.name}">Wrong name error</div>
+                </div>
+                <div class="mb-3">
+                    <label for="inputPhone" class="form-label">Phone</label>
+                    <input type="text" class="form-control" id="inputPhone" name="phone" th:field="${entrepreneurCreateDto.phone}" placeholder="+7 XXX XXX XX XX" required>
+                    <div class="errors" th:if="${#fields.hasErrors('entrepreneurCreateDto.phone')}" th:errors="${entrepreneurCreateDto.phone}">Wrong phone error</div>
+                </div>
+                <div class="mb-3">
+                    <label for="inputTaxNumber" class="form-label">TaxNumber</label>
+                    <input type="text" class="form-control" id="inputTaxNumber" name="taxNumber" th:field="${entrepreneurCreateDto.taxNumber}" placeholder="Введите ИНН (10 или 12 цифр)" pattern="^\d{10}$|^\d{12}$" required>
+                    <div class="errors" th:if="${#fields.hasErrors('entrepreneurCreateDto.taxNumber')}" th:errors="${entrepreneurCreateDto.taxNumber}">Wrong tax number error</div>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">@</span>
+                    <input type="email" class="form-control" placeholder="Username" aria-label="Username" th:field="${entrepreneurCreateDto.username}">
+                    <div class="errors" th:if="${#fields.hasErrors('entrepreneurCreateDto.username')}" th:errors="${entrepreneurCreateDto.username}">Wrong email error</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="inputPassword" class="form-label">Password</label>
+                    <input type="text" class="form-control" id="inputPassword" name="password" th:field="${entrepreneurCreateDto.password}">
+                    <div class="errors" th:if="${#fields.hasErrors('entrepreneurCreateDto.password')}" th:errors="${entrepreneurCreateDto.password}">Wrong password error</div>
+                </div>
+                <button type="submit" class="btn btn-outline-success">Create</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

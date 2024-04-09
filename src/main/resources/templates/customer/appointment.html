@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrepreneur account</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+          integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+          integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+</head>
+<body>
+<ul class="nav">
+  <li class="nav-item">
+    <form th:action="@{'/customer/' + ${id} + '/account'}" method="get">
+      <button type="submit" class="nav-link active">Личный кабинет</button>
+    </form>
+  </li>
+  <li class="nav-item">
+    <form th:action="@{/logout}" method="post">
+      <button type="submit" class="nav-link">Выход</button>
+    </form>
+  </li>
+</ul>
+<figure class="text-center">
+  <blockquote class="blockquote">
+    <p>Страница записи</p>
+  </blockquote>
+  <figcaption class="blockquote-footer">
+    Здесь можно записаться на услугу.
+  </figcaption>
+</figure>
+<div class="container mt-5">
+  <div th:each="entry : ${schedules.schedule}">
+    <h4 th:text="${entry.key}"></h4>
+    <div class="btn-group" role="group" aria-label="Basic outlined example">
+    <div th:each="item : ${entry.value}">
+      <form th:name="item" th:action="@{'/customer/' + ${id} + '/create'}" method="post">
+        <button class="btn btn-outline-secondary" type="submit" th:name="appId" th:value="${item.id}"  th:text="${item.startTime}"></button>
+      </form>
+    </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
